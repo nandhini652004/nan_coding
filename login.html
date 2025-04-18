@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'mystyle1.css' %}">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="third-page-content">  <!-- Apply proper class for styling -->
+    <h1>Login Page</h1>
+    <div class="auth-box third-page-box">  <!-- Added class to adjust spacing -->
+
+        <form method="POST" autocomplete="off">
+            
+            <!--below 8 lines for printing (Password Mismatch)-->
+            {% if messages %}
+                    <div id="message-container">
+                        {% for message in messages %}
+                            <div class='error-message'>{{ message }}</div>
+                        {% endfor %}
+                    </div>
+            {% endif %}
+
+            <!-- Remove default Django error messages -->
+            {% for field in form %}
+            {% for error in field.errors %}
+                <div class="error-message">
+                    {{ error }}
+                </div>
+            {% endfor %}
+            {% endfor %}
+            
+
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-primary">Login</button>   <!-- when i submit the form it will go to the views.py (signup function) -->
+        </form>
+
+    </div>
+</main>
+
+<footer>
+    <p>Designed by NanSa @2025</p>
+</footer>
+</body>
+</html>
+
